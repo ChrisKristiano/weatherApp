@@ -14,6 +14,7 @@ import com.example.weatherapp.domain.model.Weather
 import com.example.weatherapp.presentation.common.Background
 import com.example.weatherapp.presentation.common.WeatherCodeTranslator
 import com.example.weatherapp.presentation.daily.DailyBottomSheetFragment
+import com.example.weatherapp.presentation.hourly.HourlyBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,6 +46,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setupUI(weather: Weather) {
+        setupHourlyListeners(weather)
         setupDailyListeners(weather)
 
         val backgroundRes = WeatherCodeTranslator.toBackgroundDrawableRes(weather.currentWeather?.weatherCode, weather.currentWeather?.isDay)
@@ -58,6 +60,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.status.text = getString(statusRes)
         binding.windSpeed.text = getString(R.string.wind_speed, weather.currentWeather?.windSpeed.toString())
         binding.content.isVisible = true
+    }
+
+    private fun setupHourlyListeners(weather: Weather) {
+        binding.buttonHourly.setOnClickListener {
+            HourlyBottomSheetFragment(weather.hourly).show(requireParentFragment().parentFragmentManager, HourlyBottomSheetFragment.TAG)
+        }
     }
 
     private fun setupDailyListeners(weather: Weather) {

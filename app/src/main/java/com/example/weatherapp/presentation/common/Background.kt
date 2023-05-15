@@ -23,6 +23,6 @@ class Background(
         activity.window.statusBarColor = context.getColor(android.R.color.transparent)
         activity.window.navigationBarColor = context.getColor(android.R.color.transparent)
         activity.window.setBackgroundDrawable(transition)
-        transition.startTransition(1000)
+        transition.startTransition(700)
     }
 }

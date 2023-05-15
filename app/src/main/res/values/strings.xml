@@ -25,6 +25,7 @@
     <string name="button_daily">Daily</string>
 
     <string name="date_today">Today</string>
+    <string name="date_now">Now</string>
     <string-array name="date_week_day">
         <item>Monday</item>
         <item>Tuesday</item>
