@@ -1,0 +1,12 @@
+<resources>
+    <style name="Theme.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="postSplashScreenTheme">@style/Theme.WeatherApp</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.WeatherApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/louis_george_cafe</item>
+        <item name="fontFamily">@font/louis_george_cafe</item>
+    </style>
+</resources>
