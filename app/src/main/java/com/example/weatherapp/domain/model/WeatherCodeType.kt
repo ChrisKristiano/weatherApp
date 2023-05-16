@@ -4,7 +4,7 @@ enum class WeatherCodeType {
     CLEAR_SKY,
     MAINLY_CLEAR,
     PARTLY_CLOUDY,
-    MOSTLY_CLOUDY,
+    CLOUDY,
     FOG,
     DRIZZLE,
     FREEZING_DRIZZLE,
@@ -21,7 +21,7 @@ enum class WeatherCodeType {
             0 -> CLEAR_SKY
             1 -> MAINLY_CLEAR
             2 -> PARTLY_CLOUDY
-            3 -> MOSTLY_CLOUDY
+            3 -> CLOUDY
             45, 48 -> FOG
             51, 53, 55 -> DRIZZLE
             56, 57 -> FREEZING_DRIZZLE

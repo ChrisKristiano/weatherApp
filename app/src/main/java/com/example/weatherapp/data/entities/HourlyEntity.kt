@@ -13,6 +13,7 @@ data class HourlyEntity(
 
 fun HourlyEntity.toHourlyList(): List<Hourly> = List(this.time.size) { index ->
     Hourly(
+        id = index,
         time = this.time[index].toLocalDateTime(),
         temperature = this.temperature_2m[index].toInt(),
         weatherCode = WeatherCodeType.fromCode(this.weathercode[index]),

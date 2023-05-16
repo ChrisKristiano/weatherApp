@@ -4,6 +4,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class Daily(
+    val id: Int? = null,
     val time: LocalDate? = null,
     val weatherCode: WeatherCodeType? = null,
     val temperatureMin: Int? = null,

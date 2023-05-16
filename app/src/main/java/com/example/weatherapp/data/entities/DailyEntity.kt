@@ -20,6 +20,7 @@ data class DailyEntity(
 
 fun DailyEntity.toDailyList(): List<Daily> = List(this.time.size) { index ->
     Daily(
+        id = index,
         time = this.time[index].toLocalDate(),
         weatherCode = WeatherCodeType.fromCode(this.weathercode[index]),
         temperatureMin = this.temperature_2m_min[index].toInt(),

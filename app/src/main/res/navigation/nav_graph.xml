@@ -7,6 +7,39 @@
     <fragment
         android:id="@+id/home"
         android:name="com.example.weatherapp.presentation.main.MainFragment"
-        android:label="Home"/>
+        android:label="Home">
+        <action
+            android:id="@+id/toHourlyDetails"
+            app:destination="@+id/hourlyDetail">
+            <argument
+                android:name="hourlyId"
+                app:argType="integer"/>
+        </action>
+        <action
+            android:id="@+id/toDailyDetail"
+            app:destination="@+id/dailyDetail">
+            <argument
+                android:name="dailyId"
+                app:argType="integer"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/hourlyDetail"
+        android:name="com.example.weatherapp.presentation.hourly.detail.HourlyDetailFragment"
+        android:label="HourlyDetail">
+        <argument
+            android:name="hourlyId"
+            app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/dailyDetail"
+        android:name="com.example.weatherapp.presentation.daily.detail.DailyDetailFragment"
+        android:label="DailyDetail">
+        <argument
+            android:name="dailyId"
+            app:argType="integer"/>
+    </fragment>
 
 </navigation>

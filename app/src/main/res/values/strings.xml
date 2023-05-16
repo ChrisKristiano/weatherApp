@@ -9,7 +9,7 @@
     <string name="weather_code_clear_sky">Clear sky</string>
     <string name="weather_code_mainly_clear">Mainly clear</string>
     <string name="weather_code_partly_cloudy">Partly cloudy</string>
-    <string name="weather_code_cloudy">Mostly cloudy</string>
+    <string name="weather_code_cloudy">Cloudy</string>
     <string name="weather_code_fog">Fog</string>
     <string name="weather_code_drizzle">Drizzle</string>
     <string name="weather_code_freezing_drizzle">Freezing drizzle</string>

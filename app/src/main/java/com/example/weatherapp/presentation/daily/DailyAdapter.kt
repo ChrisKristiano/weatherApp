@@ -11,25 +11,26 @@ import com.example.weatherapp.presentation.common.WeatherCodeTranslator
 import java.time.LocalDate
 
 class DailyAdapter(
-    private val dailyList: List<Daily>
+    private val dailyList: List<Daily>,
+    private val onItemClick: (Int) -> Unit
 ) : RecyclerView.Adapter<DailyAdapter.DailyViewHolder>() {
 
     inner class DailyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val currentDate = LocalDate.now()
+        private val binding = ItemDailyBinding.bind(itemView)
 
-        fun bind(result: Daily) {
-            val binding = ItemDailyBinding.bind(itemView)
-
-            val isToday = currentDate.isEqual(result.time)
+        fun bind(data: Daily) {
+            val isToday = currentDate.isEqual(data.time)
             val days = itemView.resources.getStringArray(R.array.date_week_day_short)
 
             binding.day.text = when {
                 isToday -> itemView.resources.getString(R.string.date_today)
-                else -> result.time?.dayOfWeek?.value?.let { days[it - 1] } ?: itemView.resources.getString(R.string.nothing)
+                else -> data.time?.dayOfWeek?.value?.let { days[it - 1] } ?: itemView.resources.getString(R.string.nothing)
             }
-            binding.statusIcon.setImageResource(WeatherCodeTranslator.toIconDrawableRes(result.weatherCode, true))
-            binding.temperatureMax.text = itemView.resources.getString(R.string.temperature, result.temperatureMax.toString())
-            binding.temperatureMin.text = itemView.resources.getString(R.string.temperature, result.temperatureMin.toString())
+            binding.statusIcon.setImageResource(WeatherCodeTranslator.toIconDrawableRes(data.weatherCode, true))
+            binding.temperatureMax.text = itemView.resources.getString(R.string.temperature, data.temperatureMax.toString())
+            binding.temperatureMin.text = itemView.resources.getString(R.string.temperature, data.temperatureMin.toString())
+            binding.card.setOnClickListener { onItemClick(data.id ?: -1) }
         }
     }
 

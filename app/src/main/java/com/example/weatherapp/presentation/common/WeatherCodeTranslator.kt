@@ -13,7 +13,7 @@ class WeatherCodeTranslator {
             WeatherCodeType.CLEAR_SKY -> R.string.weather_code_clear_sky
             WeatherCodeType.MAINLY_CLEAR -> R.string.weather_code_mainly_clear
             WeatherCodeType.PARTLY_CLOUDY -> R.string.weather_code_partly_cloudy
-            WeatherCodeType.MOSTLY_CLOUDY -> R.string.weather_code_cloudy
+            WeatherCodeType.CLOUDY -> R.string.weather_code_cloudy
             WeatherCodeType.FOG -> R.string.weather_code_fog
             WeatherCodeType.DRIZZLE -> R.string.weather_code_drizzle
             WeatherCodeType.FREEZING_DRIZZLE -> R.string.weather_code_freezing_drizzle
@@ -36,7 +36,7 @@ class WeatherCodeTranslator {
 
                 WeatherCodeType.PARTLY_CLOUDY -> R.drawable.partly_sunny
 
-                WeatherCodeType.MOSTLY_CLOUDY,
+                WeatherCodeType.CLOUDY,
                 WeatherCodeType.FOG -> R.drawable.cloud
 
                 WeatherCodeType.DRIZZLE,
@@ -58,9 +58,9 @@ class WeatherCodeTranslator {
         fun toIconDrawableRes(code: WeatherCodeType?, isDay: Boolean?): Int = when {
             (WeatherCodeType.CLEAR_SKY == code || WeatherCodeType.MAINLY_CLEAR == code) && isDay == true -> R.drawable.icon_sunny
             (WeatherCodeType.CLEAR_SKY == code || WeatherCodeType.MAINLY_CLEAR == code) && isDay == false -> R.drawable.icon_night
-            (WeatherCodeType.PARTLY_CLOUDY == code || WeatherCodeType.MOSTLY_CLOUDY == code) && isDay == true -> R.drawable.icon_cloudy_day
-            (WeatherCodeType.PARTLY_CLOUDY == code || WeatherCodeType.MOSTLY_CLOUDY == code) && isDay == false -> R.drawable.icon_cloudy_night
-            WeatherCodeType.FOG == code -> R.drawable.icon_cloudy
+            WeatherCodeType.PARTLY_CLOUDY == code && isDay == true -> R.drawable.icon_cloudy_day
+            WeatherCodeType.PARTLY_CLOUDY == code && isDay == false -> R.drawable.icon_cloudy_night
+            WeatherCodeType.FOG == code || WeatherCodeType.CLOUDY == code -> R.drawable.icon_cloudy
             WeatherCodeType.DRIZZLE == code || WeatherCodeType.FREEZING_DRIZZLE == code -> R.drawable.icon_drizzle
             WeatherCodeType.RAIN == code || WeatherCodeType.FREEZING_RAIN == code -> R.drawable.icon_rain
             WeatherCodeType.RAIN_SHOWERS == code -> R.drawable.icon_rain_showers

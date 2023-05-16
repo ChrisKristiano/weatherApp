@@ -8,14 +8,15 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentActivity
 import com.example.weatherapp.R
 
-class Background(
-    private val activity: FragmentActivity,
-    private val context: Context
-) {
+object BackgroundController {
 
-    fun set(@DrawableRes backgroundRes: Int) {
+    @DrawableRes
+    private var currentDrawable: Int = R.color.theme_color
+
+    fun set(@DrawableRes backgroundRes: Int, activity: FragmentActivity, context: Context) {
+        currentDrawable = backgroundRes
         val transition = TransitionDrawable(arrayOf(
-            AppCompatResources.getDrawable(activity, R.color.theme_color),
+            AppCompatResources.getDrawable(activity, currentDrawable),
             AppCompatResources.getDrawable(activity, backgroundRes)
         ))
 
@@ -23,6 +24,6 @@ class Background(
         activity.window.statusBarColor = context.getColor(android.R.color.transparent)
         activity.window.navigationBarColor = context.getColor(android.R.color.transparent)
         activity.window.setBackgroundDrawable(transition)
-        transition.startTransition(700)
+        transition.startTransition(1000)
     }
 }
