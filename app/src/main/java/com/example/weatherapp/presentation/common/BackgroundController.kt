@@ -14,11 +14,11 @@ object BackgroundController {
     private var currentDrawable: Int = R.color.theme_color
 
     fun set(@DrawableRes backgroundRes: Int, activity: FragmentActivity, context: Context) {
-        currentDrawable = backgroundRes
         val transition = TransitionDrawable(arrayOf(
             AppCompatResources.getDrawable(activity, currentDrawable),
             AppCompatResources.getDrawable(activity, backgroundRes)
         ))
+        currentDrawable = backgroundRes
 
         activity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         activity.window.statusBarColor = context.getColor(android.R.color.transparent)

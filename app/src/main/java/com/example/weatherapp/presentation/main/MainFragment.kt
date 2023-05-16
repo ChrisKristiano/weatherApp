@@ -26,10 +26,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var binding: FragmentMainBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mainViewModel.load()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        FragmentMainBinding.inflate(inflater, container, false).also { binding = it }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         collectState()
-        return FragmentMainBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
     private fun collectState() {

@@ -20,8 +20,10 @@ class MainViewModel @Inject constructor(
     private val _data = MutableStateFlow<Weather?>(null)
     val data = _data.asStateFlow()
 
-    fun load() {
-        viewModelScope.launch { _data.emit(repository.getWeather()) }
+    init {
+        viewModelScope.launch {
+            _data.emit(repository.getWeather())
+        }
     }
 
     fun getHourlyById(id: Int): Hourly? = _data.value?.hourly?.find { it.id == id }
