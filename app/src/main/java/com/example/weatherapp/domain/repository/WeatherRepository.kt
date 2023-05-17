@@ -1,4 +1,4 @@
-package com.example.weatherapp.domain
+package com.example.weatherapp.domain.repository
 
 import com.example.weatherapp.domain.model.Weather
 

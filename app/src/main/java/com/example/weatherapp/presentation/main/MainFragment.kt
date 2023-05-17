@@ -1,5 +1,6 @@
 package com.example.weatherapp.presentation.main
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentMainBinding
 import com.example.weatherapp.domain.model.Weather
 import com.example.weatherapp.presentation.common.BackgroundController
+import com.example.weatherapp.presentation.common.NetworkService
 import com.example.weatherapp.presentation.common.WeatherCodeTranslator
 import com.example.weatherapp.presentation.daily.DailyBottomSheetFragment
 import com.example.weatherapp.presentation.hourly.HourlyBottomSheetFragment
@@ -26,6 +28,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var binding: FragmentMainBinding
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainViewModel.load(NetworkService.isConnected(context))
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         FragmentMainBinding.inflate(inflater, container, false).also { binding = it }.root
 
@@ -33,18 +40,29 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         setupSwipeListener()
         setupLoadingState()
+        setupErrorState()
         setupWeatherState()
+        setupErrorRefreshListeners()
     }
 
     private fun setupSwipeListener() {
-        binding.mainLayout.setOnRefreshListener { mainViewModel.load() }
+        binding.mainLayout.setOnRefreshListener { mainViewModel.load(NetworkService.isConnected(requireContext())) }
     }
 
     private fun setupLoadingState() {
         lifecycleScope.launch {
             mainViewModel.isLoading.collectLatest {
-                binding.content.isVisible = !it
                 binding.mainLayout.isRefreshing = it
+                binding.content.isVisible = !binding.error.isVisible
+            }
+        }
+    }
+
+    private fun setupErrorState() {
+        lifecycleScope.launch {
+            mainViewModel.isError.collectLatest {
+                binding.error.isVisible = it
+                if (it) BackgroundController.set(R.drawable.thunder, requireActivity(), requireContext())
             }
         }
     }
@@ -88,6 +106,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             DailyBottomSheetFragment(weather.daily) { id ->
                 findNavController().navigate(MainFragmentDirections.toDailyDetail(id))
             }.show(requireParentFragment().parentFragmentManager, DailyBottomSheetFragment.TAG)
+        }
+    }
+
+    private fun setupErrorRefreshListeners() {
+        binding.errorRefresh.setOnClickListener {
+            binding.mainLayout.isRefreshing = true
+            mainViewModel.load(NetworkService.isConnected(requireContext()))
         }
     }
 }

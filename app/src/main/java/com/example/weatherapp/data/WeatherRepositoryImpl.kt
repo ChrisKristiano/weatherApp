@@ -2,7 +2,7 @@ package com.example.weatherapp.data
 
 import com.example.weatherapp.data.entities.toWeather
 import com.example.weatherapp.data.remote.WeatherApi
-import com.example.weatherapp.domain.WeatherRepository
+import com.example.weatherapp.domain.repository.WeatherRepository
 import com.example.weatherapp.domain.model.Weather
 
 class WeatherRepositoryImpl(
