@@ -17,16 +17,25 @@ class MainViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
 
-    private val _data = MutableStateFlow<Weather?>(null)
-    val data = _data.asStateFlow()
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading = _isLoading.asStateFlow()
+
+    private val _weather = MutableStateFlow<Weather?>(null)
+    val weather = _weather.asStateFlow()
 
     init {
+        load()
+    }
+
+    fun load () {
         viewModelScope.launch {
-            _data.emit(repository.getWeather())
+            _isLoading.emit(true)
+            _weather.emit(repository.getWeather())
+            _isLoading.emit(false)
         }
     }
 
-    fun getHourlyById(id: Int): Hourly? = _data.value?.hourly?.find { it.id == id }
+    fun getHourlyById(id: Int): Hourly? = _weather.value?.hourly?.find { it.id == id }
 
-    fun getDailyById(id: Int): Daily? = _data.value?.daily?.find { it.id == id }
+    fun getDailyById(id: Int): Daily? = _weather.value?.daily?.find { it.id == id }
 }

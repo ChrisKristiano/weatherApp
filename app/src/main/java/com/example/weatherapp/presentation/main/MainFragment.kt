@@ -31,12 +31,27 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        collectState()
+        setupSwipeListener()
+        setupLoadingState()
+        setupWeatherState()
     }
 
-    private fun collectState() {
+    private fun setupSwipeListener() {
+        binding.mainLayout.setOnRefreshListener { mainViewModel.load() }
+    }
+
+    private fun setupLoadingState() {
         lifecycleScope.launch {
-            mainViewModel.data.collectLatest {
+            mainViewModel.isLoading.collectLatest {
+                binding.content.isVisible = !it
+                binding.mainLayout.isRefreshing = it
+            }
+        }
+    }
+
+    private fun setupWeatherState() {
+        lifecycleScope.launch {
+            mainViewModel.weather.collectLatest {
                 it?.let {
                     setupUI(it)
                 }
@@ -58,7 +73,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.statusIcon.setImageResource(iconRes)
         binding.status.text = getString(statusRes)
         binding.windSpeed.text = getString(R.string.wind_speed, weather.currentWeather?.windSpeed.toString())
-        binding.content.isVisible = true
     }
 
     private fun setupHourlyListeners(weather: Weather) {
