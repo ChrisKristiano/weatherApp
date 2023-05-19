@@ -21,12 +21,13 @@
     <string name="weather_code_snow_showers">Snow showers</string>
     <string name="weather_code_thunderstorm">Thunderstorm</string>
 
+    <string name="button_grant_permission">Grant permission</string>
     <string name="button_refresh">Refresh</string>
     <string name="button_hourly">Hourly</string>
     <string name="button_daily">Daily</string>
 
-    <string name="error_no_internet_header">No internet access</string>
-    <string name="error_no_internet_text">Please check your internet connectivity</string>
+    <string name="error_no_location_header">No location access</string>
+    <string name="error_no_location_text">You need to give location permission</string>
 
     <string name="date_today">Today</string>
     <string name="date_now">Now</string>

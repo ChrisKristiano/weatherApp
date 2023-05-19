@@ -7,10 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:animateLayoutChanges="true"
     tools:background="@color/gray">
 
     <LinearLayout
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -35,7 +35,7 @@
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="2"
-                android:text="@string/error_no_internet_header"
+                android:text="@string/error_no_location_header"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
@@ -49,7 +49,7 @@
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="2"
-                android:text="@string/error_no_internet_text"
+                android:text="@string/error_no_location_text"
                 app:layout_constraintTop_toBottomOf="@+id/errorTextHeader"/>
 
             <Button
@@ -69,6 +69,23 @@
                 android:textSize="15sp"
                 style="?attr/materialButtonOutlinedStyle"
                 app:layout_constraintTop_toBottomOf="@+id/errorText" />
+
+            <Button
+                android:id="@+id/errorPermission"
+                android:layout_marginHorizontal="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_grant_permission"
+                android:height="50dp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:shadowColor="@color/gray"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:textSize="15sp"
+                style="?attr/materialButtonOutlinedStyle"
+                app:layout_constraintTop_toBottomOf="@+id/errorRefresh" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
