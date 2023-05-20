@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WeatherApp</string>
     <string name="temperature">%s\u00B0</string>
+    <string name="feels_like">Feels like: %s\u00B0</string>
     <string name="wind_speed">Wind: %s km/h</string>
     <string name="wind_speed_no_text">%s km/h</string>
     <string name="percentage">%s%%</string>

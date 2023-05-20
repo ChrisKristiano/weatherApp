@@ -25,6 +25,7 @@ import com.example.weatherapp.presentation.hourly.HourlyBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -103,16 +104,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setupHourlyListeners(weather)
         setupDailyListeners(weather)
 
-        val backgroundRes = WeatherCodeTranslator.toBackgroundDrawableRes(weather.currentWeather?.weatherCode, weather.currentWeather?.isDay)
-        val iconRes = WeatherCodeTranslator.toIconDrawableRes(weather.currentWeather?.weatherCode, weather.currentWeather?.isDay)
-        val statusRes = WeatherCodeTranslator.toStatusStringRes(weather.currentWeather?.weatherCode)
+        val now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0)
+        val currentHour = weather.hourly.find { it.time?.isEqual(now) ?: false }
+        val backgroundRes = WeatherCodeTranslator.toBackgroundDrawableRes(currentHour?.weatherCode, currentHour?.isDay)
+        val iconRes = WeatherCodeTranslator.toIconDrawableRes(currentHour?.weatherCode, currentHour?.isDay)
+        val statusRes = WeatherCodeTranslator.toStatusStringRes(currentHour?.weatherCode)
 
         BackgroundController.set(backgroundRes, requireActivity(), requireContext())
         binding.location.text = weather.location
-        binding.temperature.text = getString(R.string.temperature, weather.currentWeather?.temperature.toString())
+        binding.temperature.text = getString(R.string.temperature, currentHour?.temperature.toString())
         binding.statusIcon.setImageResource(iconRes)
         binding.status.text = getString(statusRes)
-        binding.windSpeed.text = getString(R.string.wind_speed, weather.currentWeather?.windSpeed.toString())
+        binding.feelsLike.text = getString(R.string.feels_like, currentHour?.apparentTemperature.toString())
+        binding.windSpeed.text = getString(R.string.wind_speed, currentHour?.windSpeed.toString())
     }
 
     private fun setupHourlyListeners(weather: Weather) {
