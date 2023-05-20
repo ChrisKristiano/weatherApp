@@ -28,14 +28,13 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:textAlignment="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="100dp"
                 android:textSize="25sp"
                 android:textColor="@color/white"
                 android:shadowColor="@color/gray"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="2"
-                android:text="@string/error_no_location_header"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
@@ -49,7 +48,6 @@
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="2"
-                android:text="@string/error_no_location_text"
                 app:layout_constraintTop_toBottomOf="@+id/errorTextHeader"/>
 
             <Button

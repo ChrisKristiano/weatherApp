@@ -4,10 +4,12 @@ import android.content.Context
 import android.location.Geocoder
 import android.location.LocationManager
 import com.example.weatherapp.android.GeoLocationManagerImpl
+import com.example.weatherapp.android.NetworkManagerImpl
 import com.example.weatherapp.android.PermissionManagerImpl
 import com.example.weatherapp.data.repository.WeatherRepositoryImpl
 import com.example.weatherapp.data.remote.WeatherApi
 import com.example.weatherapp.domain.manager.GeoLocationManager
+import com.example.weatherapp.domain.manager.NetworkManager
 import com.example.weatherapp.domain.manager.PermissionManager
 import com.example.weatherapp.domain.repository.WeatherRepository
 import dagger.Module
@@ -45,6 +47,11 @@ object AppModule {
     @Singleton
     fun provideGeoLocationManager(@ApplicationContext appContext: Context): GeoLocationManager =
         GeoLocationManagerImpl(geocoder = Geocoder(appContext, Locale.getDefault()))
+
+    @Provides
+    @Singleton
+    fun provideNetworkManager(@ApplicationContext appContext: Context): NetworkManager =
+        NetworkManagerImpl(appContext)
 
     @Provides
     @Singleton

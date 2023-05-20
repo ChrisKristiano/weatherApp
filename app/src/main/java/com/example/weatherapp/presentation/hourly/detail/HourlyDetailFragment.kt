@@ -29,7 +29,7 @@ class HourlyDetailFragment : Fragment(R.layout.fragment_hourly_detail) {
     }
 
     private fun setupUI(data: Hourly) {
-        val newBgDrawable = WeatherCodeTranslator.toBackgroundDrawableRes(data.weatherCode, true)
+        val newBgDrawable = WeatherCodeTranslator.toBackgroundDrawableRes(data.weatherCode, data.isDay)
         BackgroundController.set(newBgDrawable, requireActivity(), requireContext())
 
         binding.temperature.text = data.temperature.toString()

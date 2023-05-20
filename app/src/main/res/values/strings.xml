@@ -29,6 +29,9 @@
     <string name="error_no_location_header">No location access</string>
     <string name="error_no_location_text">You need to give location permission</string>
 
+    <string name="error_no_internet_header">No internet access</string>
+    <string name="error_no_internet_text">Please check internet connectivity</string>
+
     <string name="date_today">Today</string>
     <string name="date_now">Now</string>
     <string-array name="date_week_day">
