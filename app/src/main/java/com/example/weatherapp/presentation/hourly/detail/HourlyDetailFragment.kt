@@ -32,8 +32,17 @@ class HourlyDetailFragment : Fragment(R.layout.fragment_hourly_detail) {
         val newBgDrawable = WeatherCodeTranslator.toBackgroundDrawableRes(data.weatherCode, data.isDay)
         BackgroundController.set(newBgDrawable, requireActivity(), requireContext())
 
-        binding.temperature.text = data.temperature.toString()
+        binding.temperatureValue.text = getString(R.string.temperature, data.temperature.toString())
         binding.statusIcon.setImageResource(WeatherCodeTranslator.toIconDrawableRes(data.weatherCode, data.isDay))
+        binding.feelsLikeValue.text = getString(R.string.temperature, data.apparentTemperature.toString())
+        binding.windSpeedValue.text = getString(R.string.wind_speed_no_text, data.apparentTemperature.toString())
+        binding.humidityValue.text = getString(R.string.percentage, data.humidity.toString())
+        binding.cloudCoverValue.text = getString(R.string.percentage, data.humidity.toString())
+        binding.rainChanceValue.text = getString(R.string.percentage, data.precipitationProbability.toString())
+        binding.visibilityValue.text = getString(R.string.meters, data.visibility.toString())
+        binding.pressureValue.text = getString(R.string.hPa, data.surfacePressure.toString())
+
+
         binding.content.visibility = View.VISIBLE
     }
 }

@@ -3,7 +3,9 @@
     <string name="temperature">%s\u00B0</string>
     <string name="wind_speed">Wind: %s km/h</string>
     <string name="wind_speed_no_text">%s km/h</string>
-    <string name="rain_chance">%s%%</string>
+    <string name="percentage">%s%%</string>
+    <string name="meters">%sm</string>
+    <string name="hPa">%shPa</string>
 
     <string name="nothing"/>
 
@@ -31,9 +33,13 @@
     <string name="label_temperature">Temperature</string>
     <string name="label_feels_like">Feels like</string>
     <string name="label_sunrise">Sunrise</string>
+    <string name="label_humidity">Humidity</string>
     <string name="label_sunset">Sunset</string>
     <string name="label_rain_chance">Rain chance</string>
     <string name="label_uv_index">UV index</string>
+    <string name="label_cloud_cover">Cloud cover</string>
+    <string name="label_visibility">Visibility</string>
+    <string name="label_surface_pressure">Surface pressure</string>
     <string name="label_wind_speed">Wind speed</string>
 
     <string name="error_no_location_header">No location access</string>

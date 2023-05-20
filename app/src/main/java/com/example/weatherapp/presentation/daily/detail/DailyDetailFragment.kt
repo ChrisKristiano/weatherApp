@@ -39,7 +39,7 @@ class DailyDetailFragment : Fragment(R.layout.fragment_daily_detail) {
         binding.feelsLikeMin.text = getString(R.string.temperature, data.apparentTemperatureMin.toString())
         binding.sunrise.text = data.sunrise?.toLocalTime().toString()
         binding.sunset.text = data.sunset?.toLocalTime().toString()
-        binding.rainChance.text = getString(R.string.rain_chance, data.precipitationProbability.toString())
+        binding.rainChance.text = getString(R.string.percentage, data.precipitationProbability.toString())
         binding.windSpeed.text = getString(R.string.wind_speed_no_text, data.windSpeed.toString())
         binding.uvIndex.text = data.uvIndexMax.toString()
 

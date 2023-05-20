@@ -65,7 +65,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun retrieveLocation() {
-        locationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+        locationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null)
             .addOnSuccessListener {
                 it?.let { performDataUpdate(it) } ?: showError(
                     R.string.error_no_location_header,
