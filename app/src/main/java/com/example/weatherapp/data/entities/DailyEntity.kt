@@ -15,7 +15,8 @@ data class DailyEntity(
     val sunrise: List<String> = emptyList(),
     val sunset: List<String> = emptyList(),
     val precipitation_probability_max: List<Int?> = emptyList(),
-    val windspeed_10m_max: List<Double> = emptyList()
+    val windspeed_10m_max: List<Double> = emptyList(),
+    val uv_index_max: List<Double> = emptyList(),
 )
 
 fun DailyEntity.toDailyList(): List<Daily> = List(this.time.size) { index ->
@@ -30,6 +31,7 @@ fun DailyEntity.toDailyList(): List<Daily> = List(this.time.size) { index ->
         sunrise = this.sunrise[index].toLocalDateTime(),
         sunset = this.sunset[index].toLocalDateTime(),
         precipitationProbability = this.precipitation_probability_max[index] ?: 0,
-        windSpeed = this.windspeed_10m_max[index]
+        windSpeed = this.windspeed_10m_max[index],
+        uvIndexMax = this.uv_index_max[index]
     )
 }

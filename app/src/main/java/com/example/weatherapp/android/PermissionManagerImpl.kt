@@ -11,13 +11,15 @@ class PermissionManagerImpl(
 ) : PermissionManager {
 
     override fun isLocationPermissionGranted(): Boolean =
-        ActivityCompat.checkSelfPermission(
-            appContext,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-        ||
-        ActivityCompat.checkSelfPermission(
-            appContext,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
+        isFineLocationGranted() || isCoarseLocationGranted()
+
+    private fun isFineLocationGranted(): Boolean = ActivityCompat.checkSelfPermission(
+        appContext,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+
+    private fun isCoarseLocationGranted(): Boolean = ActivityCompat.checkSelfPermission(
+        appContext,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
 }

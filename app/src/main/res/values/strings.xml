@@ -2,6 +2,8 @@
     <string name="app_name">WeatherApp</string>
     <string name="temperature">%s\u00B0</string>
     <string name="wind_speed">Wind: %s km/h</string>
+    <string name="wind_speed_no_text">%s km/h</string>
+    <string name="rain_chance">%s%%</string>
 
     <string name="nothing"/>
 
@@ -26,8 +28,17 @@
     <string name="button_hourly">Hourly</string>
     <string name="button_daily">Daily</string>
 
+    <string name="label_temperature">Temperature</string>
+    <string name="label_feels_like">Feels like</string>
+    <string name="label_sunrise">Sunrise</string>
+    <string name="label_sunset">Sunset</string>
+    <string name="label_rain_chance">Rain chance</string>
+    <string name="label_uv_index">UV index</string>
+    <string name="label_wind_speed">Wind speed</string>
+
     <string name="error_no_location_header">No location access</string>
-    <string name="error_no_location_text">You need to give location permission</string>
+    <string name="error_no_location_access_text">You need to give location permission</string>
+    <string name="error_no_location_off_text">Check if your location is turned on</string>
 
     <string name="error_no_internet_header">No internet access</string>
     <string name="error_no_internet_text">Please check internet connectivity</string>

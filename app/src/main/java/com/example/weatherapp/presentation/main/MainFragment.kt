@@ -71,6 +71,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 binding.error.isVisible = it.isError
                 binding.content.isVisible = !it.isError
                 binding.mainLayout.isRefreshing = false
+                binding.errorPermission.isVisible = it.doShowPermissionButton
                 it.message?.let { binding.errorText.text = getString(it) }
                 it.messageTitle?.let { binding.errorTextHeader.text = getString(it) }
                 if (it.isError) BackgroundController.set(R.drawable.thunder, requireActivity(), requireContext())

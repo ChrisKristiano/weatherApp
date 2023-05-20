@@ -82,6 +82,8 @@
                 android:shadowDy="2"
                 android:shadowRadius="2"
                 android:textSize="15sp"
+                android:visibility="gone"
+                tools:visibility="visible"
                 style="?attr/materialButtonOutlinedStyle"
                 app:layout_constraintTop_toBottomOf="@+id/errorRefresh" />
 

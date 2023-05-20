@@ -2,7 +2,6 @@ package com.example.weatherapp.di
 
 import android.content.Context
 import android.location.Geocoder
-import android.location.LocationManager
 import com.example.weatherapp.android.GeoLocationManagerImpl
 import com.example.weatherapp.android.NetworkManagerImpl
 import com.example.weatherapp.android.PermissionManagerImpl
@@ -12,6 +11,8 @@ import com.example.weatherapp.domain.manager.GeoLocationManager
 import com.example.weatherapp.domain.manager.NetworkManager
 import com.example.weatherapp.domain.manager.PermissionManager
 import com.example.weatherapp.domain.repository.WeatherRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,8 +41,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideLocationManager(@ApplicationContext appContext: Context): LocationManager =
-        appContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    fun provideFusedLocationProviderClient(@ApplicationContext appContext: Context): FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(appContext)
 
     @Provides
     @Singleton

@@ -14,5 +14,6 @@ data class Daily(
     val sunrise: LocalDateTime? = null,
     val sunset: LocalDateTime? = null,
     val precipitationProbability: Int? = null,
-    val windSpeed: Double? = null
+    val windSpeed: Double? = null,
+    val uvIndexMax: Double? = null,
 )

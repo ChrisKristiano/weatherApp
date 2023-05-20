@@ -2,8 +2,6 @@ package com.example.weatherapp.presentation.main
 
 import android.annotation.SuppressLint
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,6 +13,8 @@ import com.example.weatherapp.domain.model.Hourly
 import com.example.weatherapp.domain.model.Weather
 import com.example.weatherapp.domain.use_case.GetWeatherUseCase
 import com.example.weatherapp.presentation.common.ErrorState
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.Priority
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,9 +26,9 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val permissionManager: PermissionManager,
     private val networkManager: NetworkManager,
-    private val locationManager: LocationManager,
+    private val locationClient: FusedLocationProviderClient,
     private val getWeather: GetWeatherUseCase
-) : ViewModel(), LocationListener {
+) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading = _isLoading.asStateFlow()
@@ -40,10 +40,6 @@ class MainViewModel @Inject constructor(
     val weather = _weather.asStateFlow()
 
     init { load() }
-
-    override fun onLocationChanged(location: Location) {
-        performDataUpdate(location)
-    }
 
     fun load() {
         viewModelScope.launch { _isLoading.emit(value = true) }
@@ -59,12 +55,23 @@ class MainViewModel @Inject constructor(
 
     private fun requestLocation() {
         when (permissionManager.isLocationPermissionGranted()) {
-            true -> {
-                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, null)
-                locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null)
-            }
-            false -> showError(R.string.error_no_location_header, R.string.error_no_location_text)
+            true -> retrieveLocation()
+            false -> showError(
+                R.string.error_no_location_header,
+                R.string.error_no_location_access_text,
+                true
+            )
         }
+    }
+
+    private fun retrieveLocation() {
+        locationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
+            .addOnSuccessListener {
+                it?.let { performDataUpdate(it) } ?: showError(
+                    R.string.error_no_location_header,
+                    R.string.error_no_location_off_text
+                )
+            }
     }
 
     private fun performDataUpdate(location: Location) {
@@ -77,10 +84,18 @@ class MainViewModel @Inject constructor(
 
     private fun showError(
         @StringRes errorHeader: Int,
-        @StringRes errorText: Int
+        @StringRes errorText: Int,
+        doShowPermissionButton: Boolean = false
     ) {
         viewModelScope.launch {
-            _error.emit(ErrorState(true, errorHeader, errorText))
+            _error.emit(
+                ErrorState(
+                isError = true,
+                doShowPermissionButton = doShowPermissionButton,
+                messageTitle = errorHeader,
+                message = errorText
+            )
+            )
             _isLoading.emit(value = false)
         }
     }

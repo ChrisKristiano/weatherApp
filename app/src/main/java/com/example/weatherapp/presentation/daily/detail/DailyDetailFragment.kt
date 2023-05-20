@@ -32,8 +32,17 @@ class DailyDetailFragment : Fragment(R.layout.fragment_daily_detail) {
         val newBgDrawable = WeatherCodeTranslator.toBackgroundDrawableRes(data.weatherCode, true)
         BackgroundController.set(newBgDrawable, requireActivity(), requireContext())
 
-        binding.temperature.text = data.temperatureMax.toString()
+        binding.temperatureMax.text = getString(R.string.temperature, data.temperatureMax.toString())
+        binding.temperatureMin.text = getString(R.string.temperature, data.temperatureMin.toString())
         binding.statusIcon.setImageResource(WeatherCodeTranslator.toIconDrawableRes(data.weatherCode, true))
+        binding.feelsLikeMax.text = getString(R.string.temperature, data.apparentTemperatureMax.toString())
+        binding.feelsLikeMin.text = getString(R.string.temperature, data.apparentTemperatureMin.toString())
+        binding.sunrise.text = data.sunrise?.toLocalTime().toString()
+        binding.sunset.text = data.sunset?.toLocalTime().toString()
+        binding.rainChance.text = getString(R.string.rain_chance, data.precipitationProbability.toString())
+        binding.windSpeed.text = getString(R.string.wind_speed_no_text, data.windSpeed.toString())
+        binding.uvIndex.text = data.uvIndexMax.toString()
+
         binding.content.visibility = View.VISIBLE
     }
 }
