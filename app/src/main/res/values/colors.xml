@@ -2,5 +2,6 @@
 <resources>
     <color name="white">#FFFFFFFF</color>
     <color name="text">#DD000000</color>
+    <color name="theme_color">#FFFFFFFF</color>
     <color name="gray">#55474747</color>
 </resources>

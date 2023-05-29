@@ -42,7 +42,6 @@ class HourlyDetailFragment : Fragment(R.layout.fragment_hourly_detail) {
         binding.visibilityValue.text = getString(R.string.meters, data.visibility.toString())
         binding.pressureValue.text = getString(R.string.hPa, data.surfacePressure.toString())
 
-
         binding.content.visibility = View.VISIBLE
     }
 }

@@ -13,7 +13,9 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentMainBinding
@@ -67,34 +69,44 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun collectErrorState() {
         setupErrorRefreshListeners()
-        lifecycleScope.launch {
-            mainViewModel.error.collectLatest {
-                binding.error.isVisible = it.isError
-                binding.content.isVisible = !it.isError
-                binding.mainLayout.isRefreshing = false
-                binding.errorPermission.isVisible = it.doShowPermissionButton
-                it.message?.let { binding.errorText.text = getString(it) }
-                it.messageTitle?.let { binding.errorTextHeader.text = getString(it) }
-                if (it.isError) BackgroundController.set(R.drawable.thunder, requireActivity(), requireContext())
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                mainViewModel.error.collectLatest {
+                    binding.error.isVisible = it.isError
+                    binding.content.isVisible = !it.isError
+                    binding.mainLayout.isRefreshing = false
+                    binding.errorPermission.isVisible = it.doShowPermissionButton
+                    it.message?.let { binding.errorText.text = getString(it) }
+                    it.messageTitle?.let { binding.errorTextHeader.text = getString(it) }
+                    if (it.isError) BackgroundController.set(
+                        R.drawable.thunder,
+                        requireActivity(),
+                        requireContext()
+                    )
+                }
             }
         }
     }
 
     private fun collectLoadingState() {
-        lifecycleScope.launch {
-            mainViewModel.isLoading.collectLatest {
-                binding.mainLayout.isRefreshing = it
-                binding.content.isVisible = !binding.error.isVisible &&
-                        mainViewModel.weather.value != null
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                mainViewModel.isLoading.collectLatest {
+                    binding.mainLayout.isRefreshing = it
+                    binding.content.isVisible = !binding.error.isVisible &&
+                            mainViewModel.weather.value != null
+                }
             }
         }
     }
 
     private fun collectWeatherState() {
-        lifecycleScope.launch {
-            mainViewModel.weather.collectLatest {
-                it?.let {
-                    setupUI(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                mainViewModel.weather.collectLatest {
+                    it?.let {
+                        setupUI(it)
+                    }
                 }
             }
         }

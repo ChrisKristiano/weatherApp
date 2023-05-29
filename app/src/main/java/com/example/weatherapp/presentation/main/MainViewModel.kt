@@ -39,8 +39,6 @@ class MainViewModel @Inject constructor(
     private val _weather = MutableStateFlow<Weather?>(null)
     val weather = _weather.asStateFlow()
 
-    init { load() }
-
     fun load() {
         viewModelScope.launch { _isLoading.emit(value = true) }
         when (networkManager.isConnected()) {
@@ -90,11 +88,11 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _error.emit(
                 ErrorState(
-                isError = true,
-                doShowPermissionButton = doShowPermissionButton,
-                messageTitle = errorHeader,
-                message = errorText
-            )
+                    isError = true,
+                    doShowPermissionButton = doShowPermissionButton,
+                    messageTitle = errorHeader,
+                    message = errorText
+                )
             )
             _isLoading.emit(value = false)
         }
