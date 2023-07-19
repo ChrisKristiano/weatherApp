@@ -13,6 +13,7 @@ import com.example.weatherapp.domain.model.Hourly
 import com.example.weatherapp.presentation.common.BackgroundController
 import com.example.weatherapp.presentation.common.WeatherCodeTranslator
 import com.example.weatherapp.presentation.main.MainViewModel
+import com.example.weatherapp.presentation.util.extensions.orDash
 
 class HourlyDetailFragment : Fragment(R.layout.fragment_hourly_detail) {
 
@@ -32,15 +33,15 @@ class HourlyDetailFragment : Fragment(R.layout.fragment_hourly_detail) {
         val newBgDrawable = WeatherCodeTranslator.toBackgroundDrawableRes(data.weatherCode, data.isDay)
         BackgroundController.set(newBgDrawable, requireActivity(), requireContext())
 
-        binding.temperatureValue.text = getString(R.string.temperature, data.temperature.toString())
+        binding.temperatureValue.text = getString(R.string.temperature, data.temperature.toString().orDash())
         binding.statusIcon.setImageResource(WeatherCodeTranslator.toIconDrawableRes(data.weatherCode, data.isDay))
-        binding.feelsLikeValue.text = getString(R.string.temperature, data.apparentTemperature.toString())
-        binding.windSpeedValue.text = getString(R.string.wind_speed_no_text, data.apparentTemperature.toString())
-        binding.humidityValue.text = getString(R.string.percentage, data.humidity.toString())
-        binding.cloudCoverValue.text = getString(R.string.percentage, data.humidity.toString())
-        binding.rainChanceValue.text = getString(R.string.percentage, data.precipitationProbability.toString())
-        binding.visibilityValue.text = getString(R.string.meters, data.visibility.toString())
-        binding.pressureValue.text = getString(R.string.hPa, data.surfacePressure.toString())
+        binding.feelsLikeValue.text = getString(R.string.temperature, data.apparentTemperature.toString().orDash())
+        binding.windSpeedValue.text = getString(R.string.wind_speed_no_text, data.apparentTemperature.toString().orDash())
+        binding.humidityValue.text = getString(R.string.percentage, data.humidity.toString().orDash())
+        binding.cloudCoverValue.text = getString(R.string.percentage, data.humidity.toString().orDash())
+        binding.rainChanceValue.text = getString(R.string.percentage, data.precipitationProbability.toString().orDash())
+        binding.visibilityValue.text = getString(R.string.meters, data.visibility.toString().orDash())
+        binding.pressureValue.text = getString(R.string.hPa, data.surfacePressure.toString().orDash())
 
         binding.content.visibility = View.VISIBLE
     }

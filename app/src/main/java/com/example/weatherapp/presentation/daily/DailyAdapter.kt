@@ -8,6 +8,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ItemDailyBinding
 import com.example.weatherapp.domain.model.Daily
 import com.example.weatherapp.presentation.common.WeatherCodeTranslator
+import com.example.weatherapp.presentation.util.extensions.orDash
 import java.time.LocalDate
 
 class DailyAdapter(
@@ -28,8 +29,8 @@ class DailyAdapter(
                 else -> data.time?.dayOfWeek?.value?.let { days[it - 1] } ?: itemView.resources.getString(R.string.nothing)
             }
             binding.statusIcon.setImageResource(WeatherCodeTranslator.toIconDrawableRes(data.weatherCode, true))
-            binding.temperatureMax.text = itemView.resources.getString(R.string.temperature, data.temperatureMax.toString())
-            binding.temperatureMin.text = itemView.resources.getString(R.string.temperature, data.temperatureMin.toString())
+            binding.temperatureMax.text = itemView.resources.getString(R.string.temperature, data.temperatureMax.toString().orDash())
+            binding.temperatureMin.text = itemView.resources.getString(R.string.temperature, data.temperatureMin.toString().orDash())
             binding.card.setOnClickListener { onItemClick(data.id ?: -1) }
         }
     }

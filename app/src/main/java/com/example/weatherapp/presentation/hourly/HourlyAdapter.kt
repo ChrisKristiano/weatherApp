@@ -8,6 +8,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ItemHourlyBinding
 import com.example.weatherapp.domain.model.Hourly
 import com.example.weatherapp.presentation.common.WeatherCodeTranslator
+import com.example.weatherapp.presentation.util.extensions.orDash
 import java.time.LocalDateTime
 
 class HourlyAdapter(
@@ -29,10 +30,10 @@ class HourlyAdapter(
             }
             binding.time.text = when {
                 currentDate.isEqual(data.time) -> itemView.resources.getString(R.string.date_now)
-                else -> data.time?.toLocalTime().toString()
+                else -> data.time?.toLocalTime().toString().orDash()
             }
             binding.statusIcon.setImageResource(WeatherCodeTranslator.toIconDrawableRes(data.weatherCode, data.isDay))
-            binding.temperature.text = itemView.resources.getString(R.string.temperature, data.temperature.toString())
+            binding.temperature.text = itemView.resources.getString(R.string.temperature, data.temperature.toString().orDash())
             binding.card.setOnClickListener { onItemClick(data.id ?: -1) }
         }
     }

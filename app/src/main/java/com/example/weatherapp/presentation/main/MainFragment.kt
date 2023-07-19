@@ -24,6 +24,7 @@ import com.example.weatherapp.presentation.common.BackgroundController
 import com.example.weatherapp.presentation.common.WeatherCodeTranslator
 import com.example.weatherapp.presentation.daily.DailyBottomSheetFragment
 import com.example.weatherapp.presentation.hourly.HourlyBottomSheetFragment
+import com.example.weatherapp.presentation.util.extensions.orDash
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -124,11 +125,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         BackgroundController.set(backgroundRes, requireActivity(), requireContext())
         binding.location.text = weather.location
-        binding.temperature.text = getString(R.string.temperature, currentHour?.temperature.toString())
+        binding.temperature.text = getString(R.string.temperature, currentHour?.temperature.toString().orDash())
         binding.statusIcon.setImageResource(iconRes)
         binding.status.text = getString(statusRes)
-        binding.feelsLike.text = getString(R.string.feels_like, currentHour?.apparentTemperature.toString())
-        binding.windSpeed.text = getString(R.string.wind_speed, currentHour?.windSpeed.toString())
+        binding.feelsLike.text = getString(R.string.feels_like, currentHour?.apparentTemperature.toString().orDash())
+        binding.windSpeed.text = getString(R.string.wind_speed, currentHour?.windSpeed.toString().orDash())
     }
 
     private fun setupHourlyListeners(weather: Weather) {
